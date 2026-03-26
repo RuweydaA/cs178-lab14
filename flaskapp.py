@@ -69,12 +69,32 @@ def artist_query(artist_id):
         %s
     """, (artist_id,))
     
-    
+
     return display_html(rows)
 
 # TODO: Section 2 — add your /artistquery/<artist_id> route here
 
 # TODO: Section 3 — add your /pricequerytextbox GET and POST routes here
+@app.route("/timequerytextbox", methods=['GET'])
+def time_form():
+    return render_template('textbox.html', fieldname="Milliseconds")
+
+@app.route("/timequerytextbox", methods=['POST'])
+def time_form_post():
+    text = request.form['text']
+    return viewtime(text)
+
+@app.route("/timequery/<millis>")
+def viewtime(millis):
+    rows = execute_query("""
+        SELECT ArtistId, Artist.Name, Track.Name, UnitPrice, Milliseconds
+        FROM Artist
+        JOIN Album USING (ArtistID)
+        JOIN Track USING (AlbumID)
+        WHERE Milliseconds > %s
+    """, (str(millis),))
+    
+    return display_html(rows)
 
 # TODO: Section 3 — add your /timequerytextbox GET and POST routes here
 
