@@ -65,8 +65,10 @@ def artist_query(artist_id):
         FROM Artist
         JOIN Album USING (ArtistID)
         JOIN Track USING (AlbumID)
-        WHERE ArtistId = %s
+        WHERE ArtistId = 
+        %s
     """, (artist_id,))
+    
     
     return display_html(rows)
 
