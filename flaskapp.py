@@ -58,6 +58,17 @@ def index():
 # TODO: Section 1 — add your dbTesting code to dbTesting.py (not here)
 
 # TODO: Section 2 — add your /viewdb route here
+@app.route("/artistquery/<artist_id>")
+def artist_query(artist_id):
+    rows = execute_query("""
+        SELECT ArtistId, Artist.Name, Track.Name, UnitPrice, Milliseconds
+        FROM Artist
+        JOIN Album USING (ArtistID)
+        JOIN Track USING (AlbumID)
+        WHERE ArtistId = %s
+    """, (artist_id,))
+    
+    return display_html(rows)
 
 # TODO: Section 2 — add your /artistquery/<artist_id> route here
 
