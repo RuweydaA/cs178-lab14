@@ -2,3 +2,6 @@ creds.py
 .env
 __pycache__
 *.pyc
+creds.py
+.env
+.DS_Store
